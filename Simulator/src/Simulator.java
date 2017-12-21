@@ -16,6 +16,9 @@ public class Simulator {
 	private int requestsCount;
 	private AbstractRealDistribution distribution;
 	private int busyElements;
+	private double std_deviation;
+	private double lower_bound;
+	private double upper_bound;
 	public Simulator(String distributionName,double median,int simulationTime){
 		this.distributionName = distributionName;
 		this.avarage = median;
@@ -26,7 +29,17 @@ public class Simulator {
 		this.server = new Service();
 		setDistribution();
 	}
+
+	public Simulator(String distributionName, double median, int simulationTime, double standard_deviation ){
+		this.Simulator(distributionName,median,simulationTime);
+		this.std_deviation = standard_deviation;
+	}
 	
+	public Simulator(String distributionName, double median, int simulationTime, double lower_bound, double upper_bound){
+		this.lower_bound = lower_bound;
+		this.upper_bound = upper_bound;
+	}	
+
 	public void startSimulation(){
 		ArrayList<ProcessEvent> listOfRequests = new ArrayList<ProcessEvent>();
 		for ( int currentTime = 0; currentTime < this.simulationTime;currentTime++){
@@ -64,11 +77,11 @@ public class Simulator {
 	
 	public void setDistribution(){
 		if(this.distributionName.toLowerCase() == "normal"){
-			this.distribution = new NormalDistribution();
+			this.distribution = new NormalDistribution(this.median, this.std_deviation);
 		}else if(this.distributionName.toLowerCase() == "exponencial"){
 			this.distribution =  new ExponentialDistribution(this.avarage);
 		}else{
-			this.distribution = new UniformRealDistribution();
+			this.distribution = new UniformRealDistribution(this.lower_bound, this.upper_bound);
 		}
 	}
 }

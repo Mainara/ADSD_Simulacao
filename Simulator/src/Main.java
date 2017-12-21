@@ -15,10 +15,28 @@ public class Main {
 		int simulationTime = input.nextInt();
 		System.out.println("Quantidade de repetições desejadas: ");
 		int numberOfTests = input.nextInt();
-		
+		double standard_deviation = 0;
+		if( distributionName.toLowerCase() == "normal"){
+			System.out.println("Digite o desvio padrão : ");
+			standard_deviation = input.nextDouble();
+		}
+		double lower_bound = 0;
+		double upper_bound = 0;
+		if( distributionName.toLowerCase() == "uniform"){
+			System.out.println("Digite os limites para a função: ");
+			lower_bound = input.nextDouble();
+			upper_bound = input.nextDouble();
+		}		
 		//Simulate
 		for(int i = 0; i < numberOfTests;i++){
-			Simulator simulator = new Simulator(distributionName,median,simulationTime);
+			Simulator simulator;
+			if(distributionName == "exponencial"){
+				simulator = new Simulator(distributionName,median,simulationTime);
+			}else if(distributionName == "normal"){
+				simulator = new Simulator(distributionName,median,simulationTime,standard_deviation);
+			}else{
+				simulator = new Simulator(distributionName,median,simulationTime,lower_bound,upper_bound);
+			}
 			simulator.startSimulation();
 		}
 	}
