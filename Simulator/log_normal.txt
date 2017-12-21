@@ -1,0 +1,16 @@
+Digite o tipo de distribuição desejada: 
+normal
+Valor médio do tempo de serviço: 
+5,5
+Duração da simulação: 
+1000
+Quantidade de repetições desejadas: 
+1
+Digite o desvio padrão : 
+2,3
+Distriuição usada na chegada : normal
+Duração da Simulação: 1000
+Quantidade de Requisições recebidas: 8
+Quantidade de Requisições atendidas: 5
+Tempo médio de atendimento : 42.0
+Quantidade média de elementos em espera : 15

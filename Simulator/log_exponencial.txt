@@ -1,0 +1,14 @@
+Digite o tipo de distribuição desejada: 
+exponencial
+Valor médio do tempo de serviço: 
+5,5
+Duração da simulação: 
+1000
+Quantidade de repetições desejadas: 
+1
+Distriuição usada na chegada : exponencial
+Duração da Simulação: 1000
+Quantidade de Requisições recebidas: 4
+Quantidade de Requisições atendidas: 1
+Tempo médio de atendimento : 15.0
+Quantidade média de elementos em espera : 11
