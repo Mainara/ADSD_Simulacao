@@ -9,7 +9,7 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
 public class Simulator {
 	
 	private String distributionName;
-	private double avarage;
+	private double mean;
 	private int simulationTime;
 	private Service server;
 	private int requestsProcessed;
@@ -19,9 +19,9 @@ public class Simulator {
 	private double std_deviation;
 	private double lower_bound;
 	private double upper_bound;
-	public Simulator(String distributionName,double median,int simulationTime){
+	public Simulator(String distributionName,double mean,int simulationTime){
 		this.distributionName = distributionName;
-		this.avarage = median;
+		this.mean = mean;
 		this.simulationTime = simulationTime;
 		this.requestsProcessed = 0;
 		this.requestsCount = 0;
@@ -31,13 +31,28 @@ public class Simulator {
 	}
 
 	public Simulator(String distributionName, double median, int simulationTime, double standard_deviation ){
-		this.Simulator(distributionName,median,simulationTime);
+		this.distributionName = distributionName;
+		this.mean = median;
+		this.simulationTime = simulationTime;
+		this.requestsProcessed = 0;
+		this.requestsCount = 0;
+		this.busyElements = 0;
+		this.server = new Service();
 		this.std_deviation = standard_deviation;
+		setDistribution();
 	}
-	
+
 	public Simulator(String distributionName, double median, int simulationTime, double lower_bound, double upper_bound){
+		this.distributionName = distributionName;
+		this.mean = median;
+		this.simulationTime = simulationTime;
+		this.requestsProcessed = 0;
+		this.requestsCount = 0;
+		this.busyElements = 0;
+		this.server = new Service();
 		this.lower_bound = lower_bound;
 		this.upper_bound = upper_bound;
+		setDistribution();
 	}	
 
 	public void startSimulation(){
@@ -48,7 +63,7 @@ public class Simulator {
 			
 			//Verify if some waiting process will start now
 			if(listOfRequests.size() <= 2){
-				listOfRequests.add( new ProcessEvent(requestTime,this.avarage) );
+				listOfRequests.add( new ProcessEvent(requestTime,this.mean) );
 				this.requestsCount++;
 			}
 			for(int requestIndex = 0 ; requestIndex < listOfRequests.size();requestIndex++){	
@@ -67,6 +82,7 @@ public class Simulator {
 			}
 			server.verifyIfEventDone( currentTime );
 		}
+		System.out.println("Distriuição usada na chegada : " + this.distributionName);
 		System.out.println("Duração da Simulação: " + simulationTime);
 		System.out.println("Quantidade de Requisições recebidas: " + this.requestsCount);
 		System.out.println("Quantidade de Requisições atendidas: " + this.requestsProcessed);
@@ -76,10 +92,10 @@ public class Simulator {
 	}
 	
 	public void setDistribution(){
-		if(this.distributionName.toLowerCase() == "normal"){
-			this.distribution = new NormalDistribution(this.median, this.std_deviation);
-		}else if(this.distributionName.toLowerCase() == "exponencial"){
-			this.distribution =  new ExponentialDistribution(this.avarage);
+		if(distributionName.compareTo("normal") == 0 ){
+			this.distribution = new NormalDistribution(this.mean, this.std_deviation);
+		}else if(distributionName.compareTo("exponencial") == 0 ){
+			this.distribution =  new ExponentialDistribution(this.mean);
 		}else{
 			this.distribution = new UniformRealDistribution(this.lower_bound, this.upper_bound);
 		}

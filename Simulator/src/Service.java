@@ -15,7 +15,7 @@ public class Service {
 			return;
 		}
 		if( runningProcess.timeToFinish == currentTime ){
-			this.totalProcessedTime += (this.runningProcess.timeToStart - this.runningProcess.timeToFinish);
+			this.totalProcessedTime += (this.runningProcess.timeToFinish - this.runningProcess.timeToStart );
 			this.runningProcess = null;
 			this.processedEventsCount++;
 			

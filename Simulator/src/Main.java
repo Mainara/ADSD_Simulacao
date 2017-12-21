@@ -16,13 +16,13 @@ public class Main {
 		System.out.println("Quantidade de repetições desejadas: ");
 		int numberOfTests = input.nextInt();
 		double standard_deviation = 0;
-		if( distributionName.toLowerCase() == "normal"){
+		if( distributionName.compareTo("normal") == 0 ){
 			System.out.println("Digite o desvio padrão : ");
 			standard_deviation = input.nextDouble();
 		}
 		double lower_bound = 0;
 		double upper_bound = 0;
-		if( distributionName.toLowerCase() == "uniform"){
+		if( distributionName.compareTo("uniforme") == 0  ){
 			System.out.println("Digite os limites para a função: ");
 			lower_bound = input.nextDouble();
 			upper_bound = input.nextDouble();
@@ -30,9 +30,9 @@ public class Main {
 		//Simulate
 		for(int i = 0; i < numberOfTests;i++){
 			Simulator simulator;
-			if(distributionName == "exponencial"){
+			if(distributionName.compareTo("exponencial") == 0 ){
 				simulator = new Simulator(distributionName,median,simulationTime);
-			}else if(distributionName == "normal"){
+			}else if(distributionName.compareTo("normal") == 0 ){
 				simulator = new Simulator(distributionName,median,simulationTime,standard_deviation);
 			}else{
 				simulator = new Simulator(distributionName,median,simulationTime,lower_bound,upper_bound);
